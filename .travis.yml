@@ -1,5 +1,3 @@
 language:  bash
-install:
-  - sudo apt-get install miredo netcat6 -y
 script:
   - ./travis-ci-reverse-shell.sh
